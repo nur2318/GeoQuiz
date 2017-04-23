@@ -13,8 +13,8 @@ public class CheatActivity extends AppCompatActivity {
             "com.example.nur.geoquiz.answer_is_true";
 //    private static final String EXTRA_ANSWER_SHOWN =
 //            "com.example.nur.geoquiz.answer_shown";
-//    private TextView mAnswerTextView;
-//    private Button mShowAnswer;
+    private TextView mAnswerTextView;
+    private Button mShowAnswer;
 
     private boolean mAnswerIsTrue;
 
@@ -31,24 +31,24 @@ public class CheatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_cheat);
+        setContentView(R.layout.activity_cheat);
 //        what is this?Note that Activity.getIntent() always returns the Intent that started the activity. This is what you
 //        sent when calling startActivity(Intent) .
         mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
-//        mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
+        mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
 //
-//        mShowAnswer = (Button) findViewById(R.id.show_answer_button);
-//        mShowAnswer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (mAnswerIsTrue) {
-//                    mAnswerTextView.setText(R.string.true_button);
-//                } else {
-//                    mAnswerTextView.setText(R.string.false_button);
-//                }
-////                setAnswerShownResult(true);
-//            }
-//        });
+        mShowAnswer = (Button) findViewById(R.id.show_answer_button);
+        mShowAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAnswerIsTrue) {
+                    mAnswerTextView.setText(R.string.true_button);
+                } else {
+                    mAnswerTextView.setText(R.string.false_button);
+                }
+//                setAnswerShownResult(true);
+            }
+        });
     }
 
 //    private void setAnswerShownResult(boolean isAnswerShown) {
