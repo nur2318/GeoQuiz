@@ -11,8 +11,8 @@ import android.widget.TextView;
 public class CheatActivity extends AppCompatActivity {
     private static final String EXTRA_ANSWER_IS_TRUE =
             "com.example.nur.geoquiz.answer_is_true";
-//    private static final String EXTRA_ANSWER_SHOWN =
-//            "com.example.nur.geoquiz.answer_shown";
+    private static final String EXTRA_ANSWER_SHOWN =
+            "com.example.nur.geoquiz.answer_shown";
     private TextView mAnswerTextView;
     private Button mShowAnswer;
 
@@ -24,9 +24,9 @@ public class CheatActivity extends AppCompatActivity {
         return i;
     }
 
-//    public static boolean wasAnswerShown(Intent result) {
-//        return result.getBooleanExtra(EXTRA_ANSWER_SHOWN, false);
-//    }
+    public static boolean wasAnswerShown(Intent result) {
+        return result.getBooleanExtra(EXTRA_ANSWER_SHOWN, false);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +46,16 @@ public class CheatActivity extends AppCompatActivity {
                 } else {
                     mAnswerTextView.setText(R.string.false_button);
                 }
-//                setAnswerShownResult(true);
+                setAnswerShownResult(true);
             }
         });
     }
 
-//    private void setAnswerShownResult(boolean isAnswerShown) {
-//        Intent data = new Intent();
-//        data.putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown);
-////        When the user presses the Show Answer button, the CheatActivity packages up the result code and
-////        the intent in the call to setResult(int, Intent) .
-//        setResult(RESULT_OK, data);
-//    }
+    private void setAnswerShownResult(boolean isAnswerShown) {
+        Intent data = new Intent();
+        data.putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown);
+//        When the user presses the Show Answer button, the CheatActivity packages up the result code and
+//        the intent in the call to setResult(int, Intent) .
+        setResult(RESULT_OK, data);
+    }
 }
