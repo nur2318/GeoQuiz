@@ -102,6 +102,7 @@ public class QuizActivity extends AppCompatActivity {
                 mCurrentIndex = (mCurrentIndex == 0) ? mQuestionBank.length - 1 : --mCurrentIndex;
 //                int question = mQuestionBank[mCurrentIndex].getTextResId();
 //                mQuestionTextView.setText(question);
+                mIsCheater = false;
                 updateQuestion();
             }
         });
