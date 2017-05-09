@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
+
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -20,7 +22,8 @@ public class QuizActivity extends AppCompatActivity {
     private Button mTrueButton;
     private Button mFalseButton;
     private Button mNextButton;
-    private Button mCheatButton;
+
+    private Button mCheatButton ;
     private Button mPreviousButton;
     private TextView mQuestionTextView;
 
@@ -34,6 +37,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private int mCurrentIndex = 0;
     private boolean mIsCheater;
+    // import Hashmap
+    private HashMap<Integer, Boolean> mCheatMap = new HashMap<>();
 
     private void updateQuestion() {
         int question = mQuestionBank[mCurrentIndex].getTextResId();
@@ -45,7 +50,7 @@ public class QuizActivity extends AppCompatActivity {
 
         int messageResId = 0;
 
-        if (mIsCheater) {
+        if (mCheatMap.get(mCurrentIndex) != null && mCheatMap.get(mCurrentIndex)) {
             messageResId = R.string.judgment_toast;
         } else {
             if (userPressedTrue == answerIsTrue) {
@@ -102,7 +107,7 @@ public class QuizActivity extends AppCompatActivity {
                 mCurrentIndex = (mCurrentIndex == 0) ? mQuestionBank.length - 1 : --mCurrentIndex;
 //                int question = mQuestionBank[mCurrentIndex].getTextResId();
 //                mQuestionTextView.setText(question);
-                mIsCheater = false;
+                mIsCheater=false;
                 updateQuestion();
             }
         });
@@ -122,22 +127,20 @@ public class QuizActivity extends AppCompatActivity {
 // To keep the text view on rotation
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-            mIsCheater = savedInstanceState.getBoolean(KEY_CHEATED, false);
+            mCheatMap = (HashMap<Integer, Boolean>)savedInstanceState.getSerializable(KEY_CHEATED);
         }
         updateQuestion();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
 
-        if (requestCode == REQUEST_CODE_CHEAT){
-            if(data==null){
-                return;
+
+        if (requestCode == REQUEST_CODE_CHEAT) {
+            if(resultCode == Activity.RESULT_OK) {
+                mCheatMap.put(mCurrentIndex, true);
             }
-            mIsCheater=CheatActivity.wasAnswerShown(data);
+
         }
     }
 
@@ -146,7 +149,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
-        savedInstanceState.putBoolean(KEY_CHEATED, mIsCheater);
+        savedInstanceState.putSerializable(KEY_CHEATED, mCheatMap);
 
     }
 
